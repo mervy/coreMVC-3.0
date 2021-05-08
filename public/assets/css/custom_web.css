@@ -1,0 +1,55 @@
+@import "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css";
+@import "https://fonts.googleapis.com/css2?family=Parisienne&display=swap";
+* {
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color:brown;
+}
+a:hover{
+    border-bottom: 1px dotted rgb(201, 218, 54);
+}
+
+.carousel-item {
+    height: 60vh;
+    min-height: 200px; 
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+@media screen and ( min-width:360px ) and ( max-width: 1024px ) {   
+    .carousel-item { height: 30vh;}
+}
+
+.navbar-nav {
+    padding-right: 60%;
+}
+
+.map{
+    height: 25vh; 
+    border:0;
+}
+.categories li{
+    padding-bottom: 10px;
+}
+
+.img-logo{
+    height:7vh;
+}
+
+#signature{
+    font-family: 'Parisienne', cursive;
+    color: red;
+}
+
+.top { /*Classe do button para subir a página*/
+    cursor: pointer;
+    position: fixed;
+    bottom: 30px;
+    right: 25px;
+    display:none;    
+}

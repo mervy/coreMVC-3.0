@@ -1,0 +1,133 @@
+<?php
+//Use assim: $i[0]['nome'], $i[1]['categoria'] ...
+$i = $this->view->dados;
+?>
+<header>  
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner" role="listbox">
+            <!-- Slide One - Set the background image for this slide in the line below -->
+            <div class="carousel-item active" style="background-image: url('<?= $this->helper->setPathImg($i[0]['title'], $i[0]['image'], 960, 540) ?>')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3> 
+                        <a href="/article/show/<?= $this->helper->urlSEO($i[0]['title'], '-') ?>/<?= $i[0]['id'] ?>"><?= $i[0]['title'] ?></a>
+                    </h3>
+                    <p><?= $this->helper->resumir($i[0]['content'], 120) ?></p>
+                </div>
+            </div>
+            <!-- Slide Two - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('<?= $this->helper->setPathImg($i[1]['title'], $i[1]['image'], 960, 540) ?>')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>
+                        <a href="/article/show/<?= $this->helper->urlSEO($i[1]['title'], '-') ?>/<?= $i[1]['id'] ?>"><?= $i[1]['title'] ?></a>
+                    </h3>
+                    <p><?= $this->helper->resumir($i[1]['content'], 120) ?></p>
+                </div>
+            </div>
+            <!-- Slide Three - Set the background image for this slide in the line below -->
+            <div class="carousel-item" style="background-image: url('<?= $this->helper->setPathImg($i[2]['title'], $i[2]['image'], 960, 540) ?>')">
+                <div class="carousel-caption d-none d-md-block">
+                    <h3>
+                        <a href="/article/show/<?= $this->helper->urlSEO($i[2]['title'], '-') ?>/<?= $i[2]['id'] ?>"><?= $i[2]['title'] ?></a>
+                    </h3>
+                    <p><?= $this->helper->resumir($i[2]['content'], 120) ?></p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>    
+</header>
+
+<div class="container">
+    <div class="row mt-5 d-flex align-items-center">
+        <div class="col-lg-6">
+            <a href="/article/show/<?= $this->helper->urlSEO($i[3]['title'], '-') ?>/<?= $i[3]['id'] ?>">
+                <h2><?= $i[3]['title'] ?></h2></a>                    
+            <p><?= $this->helper->resumir($i[3]['content'], 500) ?></p>                    
+        </div>
+        <div class="col-lg-6">
+            <img class="img-fluid rounded" src="<?= $this->helper->setPathImg($i[3]['title'], $i[3]['image'], 700, 450) ?>" alt="<?= $i[3]['title'] ?>">
+        </div>
+    </div>  
+
+    <div class="row mt-5">
+        <?php for ($x = 4; $x <= 9; $x++): ?>
+            <div class="col-lg-4 col-sm-6 mb-3">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="<?= $this->helper->setPathImg($i[$x]['title'], $i[$x]['image'], 700, 400) ?>" alt="<?= $i[$x]['title'] ?>"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="/article/show/<?= $this->helper->urlSEO($i[$x]['title'], '-') ?>/<?= $i[$x]['id'] ?>"><?= $i[$x]['title'] ?></a>
+                        </h4>
+                        <?php
+                        $data = (strtotime($i[$x]['created']) < strtotime($i[$x]['updated'])) ? date("F, Y", strtotime($i[$x]['updated'])) : date("F d, Y", strtotime($i[$x]['created']));
+                        ?>
+                        <p class="text-muted text-end text-break">                        
+                            <i class="bi bi-pencil-square"></i> <a href="<?= "/articles/category/" . $i[$x]['caSlug'] ?>"><?= $i[$x]['caName'] ?></a> |
+                            <i class="bi bi-person-bounding-box"></i> <?= $i[$x]['auName'] ?> |                         
+                            <i class="bi bi-calendar2-week"></i> <?= $data ?>
+                        </p>
+                        <p class="card-text"><?= $this->helper->resumir($i[$x]['content'], 150) ?></p>
+                    </div>
+                </div>
+            </div>
+        <?php endfor; ?>
+    </div>
+</div> 
+
+<div class="text-center mb-3">   
+    <h3>Inscreva-se para receber novidades</h3>   
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <?php if (@$this->view->errors): ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= @$this->view->errors; ?>                       
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>   
+            <?php endif; ?>
+            <?php if (@$this->view->sucess): ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= @$this->view->sucess; ?>                       
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>  
+            <?php endif; ?>
+            <form role="form" method="post" action="/newsletter">  
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="user"><i class="fa fa-user icon" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" name="name" placeholder="Digite seu nome" aria-describedby="user">
+                </div>
+
+                <div class="input-group mb-3">  
+                    <span class="input-group-text" id="email"><i class="fa fa-envelope icon" aria-hidden="true"></i></span>
+                    <input type="email" class="form-control" name="email" placeholder="Digite seu e-mail" aria-describedby="email">
+                </div>
+                <div class="input-group mb-3">
+                    <input type="hidden" name="hidden" value="<?= ($this->view->x + $this->view->y) ?>">
+                    <span class="input-group-text" id="lock"><i class="fa fa-lock icon" aria-hidden="true"></i></span>
+                    <input type="text" class="input-field form-control input-lg" name="soma" placeholder="Qual é o resultado da soma: <?= $this->view->x ?> + <?= $this->view->y ?>?" aria-describedby="lock">                                      
+                </div>
+                <div class="form-group">
+                    <div class="text-center" id="news">
+                        <button type="submit" class="btn btn-dark my-2 pull-right px-5">Enviar</button>                            
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+

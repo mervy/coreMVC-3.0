@@ -1,0 +1,64 @@
+<div class="container">   
+    <div class="row">        
+        <div class="col-lg-12 my-3">          
+            <iframe class="w-100 map" src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d28842.89549039398!2d-51.483373293770356!3d-25.359183566524433!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbr!4v1619303470044!5m2!1sen!2sbr" allowfullscreen="" ></iframe>
+        </div>      
+    </div>
+
+    <div class="row d-flex justify-content-center">
+        <div class="col-lg-8 mb-4 text-center">
+            <h3>Envie sua mensagem</h3>
+            <p>Dúvidas, sugestões, elogios, não se acanhe! Use o formulário abaixo para enviar sua mensagem.</p>
+            <p>Assim que possível, respondemos!</p>
+            <form action="/send" id="contactForm" method="post">
+                <?php if (@$this->view->errors): ?>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">                   
+                        <?= $this->view->errors ?>                                              
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>   
+                <?php endif; ?>
+                <?php if (@$this->view->sucess): ?>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <?= $this->view->sucess; ?>                       
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>  
+                <?php endif; ?>
+                <div class="form-floating mb-2">
+                    <input type="text" class="form-control" id="contactName" name="name" placeholder="John Smith">
+                    <label for="floatingInput">Nome*</label>
+                </div>
+                <div class="row">
+                    <div class="form-floating col-7 mb-2">
+                        <input type="email" class="form-control" id="conatactEmail" name="email" placeholder="name@example.com">
+                        <label for="floatingInput">&nbsp&nbsp&nbspEmail*</label>
+                    </div>                    
+                    <!--<div class="form-floating col-5 mb-2">
+                        <input type="text" class="form-control" id="contactPhone" name="phone" class="phone" >
+                        <label for="floatingPhone">&nbsp&nbsp&nbspTelefone [Não é obrigatório]</label>-->
+                   
+                   <div class="form-floating col-5 mb-2">
+                        <input type="text" class="form-control phone" id="contactPhone" name="phone">
+                        <!--<input type="text" name="telefone" class="telefone" />-->
+                        <label for="floatingPhone">&nbsp&nbsp&nbspTelefone [Não é obrigatório]</label>
+                    </div> 
+                </div>
+                
+                <div class="form-floating mb-2">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="contactMessage" name="message" style="height: 140px"></textarea>
+                    <label for="floatingTextarea2">Mensagem</label>
+                </div>
+                <div class="row">
+                    <div class="form-floating mb-3 col-3">
+                        <input type="hidden" name="hidden" value="<?= ($this->view->x + $this->view->y) ?>">
+                       <!-- <span class="input-group-text" id="lock"><i class="fa fa-lock icon" aria-hidden="true"></i></span>-->
+                        <input type="text" class="form-control" name="soma" placeholder="<?= $this->view->x ?> + <?= $this->view->y ?>?">
+                        <label for="floatingInput text-center">&nbsp&nbsp&nbsp Calcule: <?= $this->view->x ?> + <?= $this->view->y ?>?</label>
+                    </div>
+                    <div class="col-9 mt-3">
+                        <button type="submit" class="btn btn-primary text-center" id="sendMessageButton">Enviar mensagem</button>
+                    </div>  
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

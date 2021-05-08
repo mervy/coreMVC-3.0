@@ -1,0 +1,32 @@
+
+    <div class="page-header">
+        <h3 class="h3 py-3"><?= $this->getPageTitle() ?></h3>
+    </div>  
+
+    <form action="/admin/update/author/<?=$this->view->author['id']?>" method="post" accept-charset="utf-8">
+        <div class="row">
+            <div class="col-lg-5 col-offset-1">
+                <div class="form-group">
+                    <label for="name">Nome</label>
+                    <input type="text" name="name" class="form-control" value="<?=$this->view->author['name']?>">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>    
+                    <input type="text" name="email" class="form-control" value="<?=$this->view->author['email']?>">    
+                </div>   
+
+                <div class="form-group">
+                    <label for="nickname">Nickname</label>    
+                    <input type="text" name="nickname" class="form-control" value="<?=$this->view->author['nickname']?>">    
+                </div> 
+
+                <div class="form-group">
+                    <label for="password">Password</label>    
+                    <input type="password" name="password" class="form-control" value="">    
+                </div> 
+                <a href="/admin" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </form>

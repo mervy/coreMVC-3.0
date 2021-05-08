@@ -1,0 +1,40 @@
+
+<div class="page-header">     
+    <h2 class="card-title py-3">Authors</h2>
+</div> 
+
+<p class="text-right"><a href="/admin/create/author" class="btn btn-primary" ><i class="fa fa-pencil"></i> Add new authors</a></p>
+<?php if (!empty($this->view->authors)): ?>    
+    <table class="table table-striped custab sortable">
+        <thead>           
+            <tr>
+                <th>ID</th>
+                <th>Nickname</th>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th>Status</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <?php foreach ($this->view->authors as $author): ?>
+            <tr>
+                <td><?= $author['id'] ?></td>
+                <td><?= $author['nickname'] ?></td>
+                <td><?= $author['name'] ?></td>
+                <td><?= $author['email'] ?></td>
+                <td><?= $author['status'] ?></td>
+                <td class="text-center" width="30%">
+                    <a class='btn btn-info btn-xs' href="/admin/edit/author/<?= $author['id'] ?>"><span class="fa fa-pencil-square-o"></span> Edit</a> 
+                    <a href="/admin/delete/author/<?= $author['id'] ?>" class="btn btn-danger btn-xs" 
+                       onclick="confirm('Tem certeza que quer excluir?')"><span class="fa fa-trash-o"></span> Del</a>                        
+                    <a href="/admin/approve/authors/<?= $author['id'] ?>" class="btn btn-warning btn-sm">
+                        <span class="fa fa-thumbs-o-<?php echo ($author['status'] == "yes") ? 'up' : 'down' ?> "></span> <?php echo ($author['status'] == "yes") ? 'Approve' : 'Disapprove'
+        ?> </a>      
+                </td>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else: ?> 
+    <p>Não há artigos a listar!!</p>
+<?php endif; ?>

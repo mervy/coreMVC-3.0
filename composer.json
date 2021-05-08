@@ -1,0 +1,20 @@
+{
+    "name": "gkult/coremvc",
+    "description": "Core MVC - Gkult Corp - Powerful MVC PHP without frameworks",   
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mervy",
+            "email": "mervy@gkult.net"           
+        }
+    ],    
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/app/",
+            "Core\\": "src/core/"
+        }
+    },
+    "require": {
+        "php": ">=7.0.0"
+    }
+} 

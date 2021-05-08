@@ -1,0 +1,89 @@
+<?php $a = $this->view->article; ?>
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="mt-3">
+        <small><?= $this->getPageTitle() ?></small>
+    </h1>
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Artigos</li>
+    </ol>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">           
+            <p class="lead">
+                by <?= $a['auName'] ?>, in <a href="/articles/category/<?= $a['caSlug'] ?>"><?= $a['caName'] ?> </a>
+            </p>
+            <?php
+            $data = ($a['created'] < $a['updated']) ? date("F d, Y", strtotime($a['updated'])) : date("F d, Y", strtotime($a['created']));
+            $hora = ($a['created'] < $a['updated']) ? date("h:i A", strtotime($a['updated'])) : date("h:i A", strtotime($a['created']))
+            ?>
+            <p><span class="glyphicon glyphicon-time"></span> Posted on <?= $data ?> at <?= $hora ?></p>
+            <hr>
+            <img class="img-fluid w-100" src="<?= $this->helper->setPathImg($a['title'], $a['image'], 900, 450) ?>" alt="<?= $a['title'] ?>"/>
+            <hr>
+            <p> <?= $a['content'] ?></p> 
+            <h4>Artigos que podem te interessar</h4>            
+            <div class="row">
+                <?php foreach ($this->view->rel as $r): ?> 
+                    <div class="col-md-6 g-3">
+                        <div class="card">
+                            <img src="<?= $this->helper->setPathImg($r['title'], $r['image'], 480, 270) ?>" alt="<?= $r['title'] ?>" class="card-img-top">
+                            <div class="card-body">
+                                <a href="/article/show/<?= $this->helper->urlSEO($r['title'], '-') ?>/<?= $r['id'] ?>" class="text-muted text-decoration-none">
+                                    <h5 class="card-title"><?= $r['title'] ?></h5></a>
+                                <p class="card-text"><?= $this->helper->resumir($r['content'], 120) ?></p>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?> 
+
+            </div>
+            <p>
+                <?php //require_once "../storage/marketing/testes-disqus.inc" ?>  
+            </p>
+            <?php require_once "../storage/marketing/ls-graphcomment.inc" ?>            
+        </div>   
+
+
+        <!-- Blog Sidebar Widgets Column -->
+        <div class="col-md-3">
+            <div class="search">
+                <script async src="https://cse.google.com/cse.js?cx=edd830fe8658521e6"></script>
+                <div class="gcse-search"></div>
+            </div>
+            <!-- Blog Categories Well -->
+            <div class="well">
+                <h4>Categorias</h4>
+                <table class="table table-condensed">
+                    <?php foreach ($this->view->artbycat as $c): ?>
+                        <tr>
+                            <td><a href="/articles/category/<?= $c['slug'] ?>"><?= $c['name'] ?></a>
+                                <span class="badge rounded-pill bg-warning text-dark float-end"><?= $c['categories_id'] ?></span></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>            
+            </div>       
+
+            <div class="well">
+                <h4>Mais acessados</h4>
+                <table class="table table-condensed">
+                    <?php foreach ($this->view->maisacessados as $plus): ?> 
+                        <tr>
+                            <td><a href="/article/show/<?= $this->helper->urlSEO($plus['title'], '-') ?>/<?= $plus['articles_id'] ?>"><?= $plus['title'] ?></a> 
+                                <span class="badge rounded-pill bg-info text-dark float-end"><?= $plus['qtd'] ?></span></td>
+                        </tr> 
+                    <?php endforeach; ?>                
+                </table>            
+            </div>
+        </div>
+    </div>
+</div>

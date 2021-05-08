@@ -1,0 +1,86 @@
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- Page Heading/Breadcrumbs -->
+    <h1 class="h2 my-3">
+        <?= $this->getPageTitle() ?> |
+        <small class="fs-5 text-info"><?= $this->view->dados[0]['caName'] ?></small>
+        <?php //print_r($this->view->dados);?>
+    </h1>
+   
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <?php foreach ($this->view->dados as $d): ?> 
+            <div class="col">
+                <div class="card">
+                    <img src="<?= $this->helper->setPathImg($d['title'], $d['image'], 900, 450) ?>" alt="<?= $d['title'] ?>" class="card-img-top">
+                    <h5 class="card-title">
+                        <div class="card-body">
+                            <a href="/article/show/<?= $this->helper->urlSEO($d['title'], '-') ?>/<?= $d['id'] ?>">
+                                <?= $d['title'] ?>      
+                            </a>
+                    </h5> 
+                    <span class="text-muted text-end">                        
+                        <i class="bi bi-pencil-square"></i> <?= $d['auName'] ?> |                                                     
+                        <i class="bi bi-calendar2-week"></i> <?= date("F, Y", strtotime($d['created'])) ?>
+                    </span>
+                    <p class="card-text"> <?= $this->helper->resumir($d['content'], 200) ?></p>
+
+                </div>
+            </div> 
+        <?php endforeach; ?>
+    </div>
+    <?php if ($this->view->contar > 1): ?>
+        <ul class="pagination justify-content-center py-3">
+            <?php
+            //Tratamento do Previous ou <<
+            if (isset($_GET['page'])) {
+                if ($_GET['page'] == 1 || $_GET['page'] == null) {
+                    $p = '#';
+                } else {
+                    $n = $_GET['page'] - 1;
+                    $p = "/articles/category/" . $d['caSlug'] . "?page=$n";
+                }
+            }
+            ?>     
+            <li class="page-item">
+                <a class="page-link" href="<?= @$p; ?>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+
+            <?php for ($i = 1; $i <= $this->view->contar; $i++): ?>
+                <?php if ($i == $this->view->atual): ?> 
+                    <li class="page-item">
+                        <a class="page-link" href="#"><?= $i ?></a>
+                    </li>  
+                <?php else: ?> 
+                    <li class="page-item">
+                        <a class="page-link" href="/articles/category/<?= $d['caSlug'] ?>?page=<?= $i ?>"><?= $i ?></a>
+                    </li>                   
+                <?php endif; ?>
+            <?php endfor; ?>
+
+            <?php
+            //Tratamento do Next ou >>
+            if (@$_GET['page'] == $this->view->contar) {
+                $p = '#';
+            } else {
+                if (@$_GET['page'] == null) {
+                    $p = "/articles/category/" . $d['caSlug'] . "?page=2";
+                } else {
+                    $n = @$_GET["page"] + 1;
+                    $p = "/articles/category/" . $d['caSlug'] . "?page=$n";
+                }
+            }
+            ?>
+            <li class="page-item">
+                <a class="page-link" href="<?= @$p; ?>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        </ul>
+    <?php endif; ?>
+</div>

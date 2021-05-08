@@ -1,0 +1,24 @@
+
+<h2 class="card-title separator"><?= $this->getPageTitle() ?></h2>   
+
+    <form action="/admin/update/category/<?= $this->view->category['id'] ?>" method="post" accept-charset="utf-8">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="form-group">
+                    <label for="title">Name</label>
+                    <input type="text" name="name" class="form-control" value="<?= $this->view->category['name'] ?>">
+                </div>
+                <div class="form-group">
+                    <label for="slug">Slug</label>
+                    <input type="text" name="slug" class="form-control" value="<?= $this->view->category['slug'] ?>">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>    
+                    <textarea name="description" class="form-control" rows="10"><?= $this->view->category['description'] ?></textarea>         
+                </div>            
+
+                <a href="/admin" class="btn btn-danger">Cancelar</a>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </form>

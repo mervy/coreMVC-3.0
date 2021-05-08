@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6 offset-md-3"> 
+                <h3 class="text-center separator"><?= $this->getSiteName() ?></h3>
+                <form action="/login/auth" method="post" accept-charset="utf-8" class="separator">
+                    <?php if (!empty($_SESSION['error'])): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= $_SESSION['error'] ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>   
+                    <?php endif; ?>    
+                    <div class="form-floating mb-2">
+                        <input type="e-mail" class="form-control" id="loginEmail" name="email" placeholder="john@gmail.com">
+                        <label for="floatingEmail"><i class="fa fa-envelope"></i>  E-mail</label>
+                    </div>
+
+                    <div class="form-floating mb-2">
+                        <input type="password" class="form-control" id="loginPass" name="password" placeholder="******">
+                        <label for="floatingInput"><i class="fa fa-lock"></i>  Password</label>
+                    </div>                    
+              
+                    <button type="submit" class="btn btn-warning my-3 px-5">Logar</button>
+                </form>
+            </div>          
+        </div>
+    </div>
+</div>
+

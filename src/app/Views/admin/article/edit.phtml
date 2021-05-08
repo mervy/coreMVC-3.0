@@ -1,0 +1,89 @@
+
+<div class="page-header">
+    <h3 class="h3 py-3"><?= $this->getPageTitle() ?></h3>       
+    <small class="fa fa-share-square-o"><?= date('d/m/Y', strtotime($this->view->article['created'])) ?></small>
+    <small class="fa fa-pencil-square-o"><?= date('d/m/Y', strtotime($this->view->article['updated'])) ?></small>
+</div>   
+<form action="/admin/update/article/<?= $this->view->article['id'] ?>" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input type="text" name="title" class="form-control" value="<?= $this->view->article['title'] ?>">
+            </div>
+            <div class="form-group">
+                <label for="image">Imagem de capa</label>
+                <input type="text" name="image" class="form-control" value="<?= $this->view->article['image'] ?>">
+            </div>
+            <div class="form-group">
+                <label for="image">Diretório das imagens</label><br>
+                <button type="button" class="btn btn-info">
+                    /assets/uploads/articles/<?= $this->helper->urlSEO($this->view->article['title'], '-') ?>
+                </button>                                        
+            </div>
+        </div>          
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label class="control-label" for="categorias">Categorias</label>
+                <?php foreach ($this->view->categories as $cat): ?>
+                    <div class="radio">
+                        <label>
+                            <?php if ($cat['id'] == $this->view->article['caId']): ?>
+                                <input type="radio" name="categories_id" value="<?= $cat['id'] ?>" checked=""> <?= $cat['name'] ?>
+                            <?php else: ?>
+                                <input type="radio" name="categories_id" value="<?= $cat['id'] ?>" required> <?= $cat['name'] ?>
+                            <?php endif; ?>
+                        </label>
+                    </div>
+                <?php endforeach; ?>            
+            </div>
+        </div>
+    </div>
+
+    <div class="header">                    
+        <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".content">Expand/Collapse</button>
+    </div>
+    <div class="form-group content">
+        <label for="upload">Upload</label>
+        <input type="file" name="files[]" class="form-control" multiple id="arquivos">  
+        Imagens no servidor:<br>                    
+        <?php
+        if (!empty($this->view->img)):
+            for ($i = 2; $i < count($this->view->img); $i++):
+                ?>
+                <div class="thumbnail" style="width: 20%; height: 150px; float: left">
+                    <img src="/assets/uploads/articles/thumbs.php?i=<?= $this->helper->urlSEO($this->view->article['title'], '-') . '/' . $this->view->img[$i] ?>&w=150&h=100">
+                    <div class="caption">
+                        <p><input type="checkbox" name="imagedel[]" value="assets/uploads/articles/<?= $this->helper->urlSEO($this->view->article['title'], '-') ?>/<?= $this->view->img[$i] ?>"><?= $this->view->img[$i] ?></p>
+                    </div>
+                </div>
+            <?php endfor;
+        else:
+            ?>
+            <p>Sem imagens do artigo!</p>
+<?php endif; ?>                  
+
+    </div>
+
+    <div class="form-group" style="clear: both">
+        <label for="content">Artigo</label><i class="pull-right">Created in: <i class="fa fa-calendar" aria-hidden="true"></i> <?= date('d-M-Y H:i:s', strtotime($this->view->article['created'])) ?>
+            &nbsp;Now: <i class="fa fa-calendar" aria-hidden="true"></i> <?= date('d-M-Y H:i:s'); ?></i>     
+        <textarea name="content" class="form-control" rows="15"><?= $this->view->article['content'] ?></textarea>         
+    </div>
+    <div class="form-group">
+        <label for="authors_id">Autores</label>
+        <select class="form-control" required name="authors_id">
+            <?php foreach ($this->view->authors as $aut): ?>
+                <?php if ($aut['id'] == $this->view->article['auId']): ?>
+                    <option value="<?= $aut['id'] ?>" selected><?= $aut['name'] ?></option>
+                <?php else: ?>
+                    <option value="<?= $aut['id'] ?>"><?= $aut['name'] ?></option>
+    <?php endif; ?>
+<?php endforeach; ?>
+        </select>
+    </div>
+    <input type="hidden" name="created" value="<?= $this->view->article['created'] ?>">
+    <input type="hidden" name="updated" value="<?= date('Y-m-d H:i:s'); ?>">
+    <a href="/admin" class="btn btn-danger my-3">Cancelar</a>
+    <button type="submit" class="btn btn-primary my-3">Salvar</button>
+</form>

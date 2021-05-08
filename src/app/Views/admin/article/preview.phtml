@@ -1,0 +1,22 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 col-lg-9 mt-3">           
+                
+            <img src="/assets/uploads/articles/thumbs.php?i=<?= $this->helper->urlSEO($this->view->article['title'], '-') . '/' . $this->view->article['image'] ?>&w=900&h=450" class="w-100 mt-5">
+
+            <h2><?= $this->view->article['title'] ?></h2>
+
+            <section class='content'>
+                <?= $this->view->article['content'] ?>
+            </section>  
+            <p class="pull-right">
+                <small>In <b><?= date('d/m/Y', strtotime($this->view->article['created'])) ?>,</b></small> 
+                <small> by <b><?= $this->view->article['auName'] ?></b></small>  
+            </p>  
+        </div>
+    </div>
+</div>
+
+
+
