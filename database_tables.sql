@@ -6,15 +6,15 @@
 
 CREATE TABLE IF NOT EXISTS `articles` (
   `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `title` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `image` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `content` text COLLATE utf8_unicode_ci NOT NULL,
-  `status` char(3) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'not' COMMENT 'yes or not',
+  `title` varchar(128) NOT NULL,
+  `image` varchar(128) NOT NULL,
+  `content` text NOT NULL,
+  `status` char(3) NOT NULL DEFAULT 'not' COMMENT 'yes or not',
   `created` datetime NOT NULL,
   `updated` datetime NOT NULL,
   `authors_id` int(11) NOT NULL,
   `categories_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -24,12 +24,12 @@ CREATE TABLE IF NOT EXISTS `articles` (
 
 CREATE TABLE IF NOT EXISTS `authors` (
   `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `nickname` varchar(32) COLLATE utf8_unicode_ci UNIQUE KEY NOT NULL,
-  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(64) COLLATE utf8_unicode_ci UNIQUE KEY NOT NULL,
-  `password` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `status` char(3) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes' COMMENT 'yes or not'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `nickname` varchar(32) UNIQUE KEY NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `email` varchar(64) UNIQUE KEY NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `status` char(3) NOT NULL DEFAULT 'yes' COMMENT 'yes or not'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `authors`
@@ -46,10 +46,10 @@ INSERT INTO `authors` (`id`, `nickname`, `name`, `email`, `password`, `status`) 
 
 CREATE TABLE IF NOT EXISTS `categories` (
   `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) COLLATE utf8_unicode_ci UNIQUE KEY NOT NULL,
-  `slug` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(512) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `name` varchar(128) UNIQUE KEY NOT NULL,
+  `slug` varchar(128) NOT NULL,
+  `description` varchar(512) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -59,11 +59,11 @@ CREATE TABLE IF NOT EXISTS `categories` (
 
 CREATE TABLE IF NOT EXISTS `newsletters` (
   `id` int(11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `name` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(64) COLLATE utf8_unicode_ci UNIQUE KEY NOT NULL,
-  `ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `email` varchar(64) UNIQUE KEY NOT NULL,
+  `ip` varchar(15) NOT NULL,
   `registered_in` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
